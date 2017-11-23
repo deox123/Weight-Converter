@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+
+  <title>Weigth Converter</title>
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 offset-md-3">
+        <h1 class="display-4 text-center my-5">Weight Converter</h1>
+        <form id="myForm" class="form-group my-4">
+          <select id="unit" class="form-control custom-select form-control-lg">
+            <option value="0">Grams</option>
+            <option value="1">Kilograms</option>
+            <option value="2">Ounces</option>
+            <option value="3">Pounds</option>
+          </select>
+          <input id="input" type="number" class="form-control form-control-lg" />
+        </form>
+        <div id="output" class="cards">
+          <div class="card card-inverse card-warning mb-3 text-center">
+            <div class="card-block">
+              <h4>Grams:</h4>
+              <div id="gOutput"></div>
+            </div>
+          </div>
+          <div class="card card-inverse card-success mb-3 text-center">
+            <div class="card-block">
+              <h4>Kilograms:</h4>
+              <div id="kgOutput"></div>
+            </div>
+          </div>
+          <div class="card card-inverse card-info mb-3 text-center">
+            <div class="card-block">
+              <h4>Ounces:</h4>
+              <div id="ozOutput"></div>
+            </div>
+          </div>
+          <div class="card card-inverse card-danger mb-3 text-center">
+            <div class="card-block">
+              <h4>Pounds:</h4>
+              <div id="lbOutput"></div>
+            </div>
+          </div>
+        </div> <!-- cards -->
+
+      </div>
+    </div>
+  </div>
+
+  <script>
+
+    // outputs array: g, kg, oz, lb
+    var arrOutput = [
+                document.getElementById('gOutput'),
+                document.getElementById('kgOutput'),
+                document.getElementById('ozOutput'),
+                document.getElementById('lbOutput')
+              ];
+
+    // measurements
+    // g:0, kg:1, oz:2, lb:3
+    var mes = [
+                [1, 0.001, 0.035274, 0.00220462],
+                [1000, 1, 35.274, 2.20462],
+                [28.3495, 0.0283495, 1, 0.0625],
+                [453.592, 0.453592, 16, 1]
+              ];
+
+    document.getElementById('unit').addEventListener('change', function(e) {
+      //var input = e.target.value;
+      var input = document.getElementById('input').value;
+      var unit = document.getElementById('unit').value;
+
+      for (let i = 0; i < arrOutput.length; i++) {
+        arrOutput[i].innerHTML = input * mes[unit][i];
+      }
+
+
+    });
+
+    document.getElementById('input').addEventListener('input', function (e) {
+      var input = e.target.value;
+      var unit = document.getElementById('unit').value;
+
+      for (let i = 0; i < arrOutput.length; i++) {
+        arrOutput[i].innerHTML = input * mes[unit][i];
+      }
+    });
+
+    window.addEventListener('load', function() {
+      document.getElementById('myForm').reset();
+    });
+  </script>
+
+
+</body>
+</html>
